@@ -12,11 +12,19 @@ namespace FolderSync
 {
     public partial class FolderSyncService : ServiceBase
     {
-        FolderNotification folderNotification;
+        private Configuration configuration;
+        private FolderNotification folderNotification;
 
         public FolderSyncService()
         {
             InitializeComponent();
+
+            configuration = new Configuration();
+
+            fileSystemWatcher.Path = configuration.getSourcePath();
+            folderNotification = new FolderNotification(
+                new PathActions(configuration.getSourcePath(), configuration.getTargetPath()), 
+                new FileActions(configuration.getSourcePath(), configuration.getTargetPath()));
 
             fileSystemWatcher.Changed += folderNotification.handleChanged;
             fileSystemWatcher.Created += folderNotification.handleCreated;

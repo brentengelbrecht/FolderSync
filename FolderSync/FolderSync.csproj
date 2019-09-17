@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration.cs" />
     <Compile Include="FileActions.cs" />
     <Compile Include="FolderNotification.cs" />
     <Compile Include="FolderSyncService.cs">
