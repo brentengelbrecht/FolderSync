@@ -17,7 +17,7 @@ namespace FolderSync
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new FolderSyncService()
+                new FolderSync()
             };
             ServiceBase.Run(ServicesToRun);
         }
