@@ -32,14 +32,14 @@ InstallUtil /u <path/to/>FolderSync.exe
 
 ### Create a configuration for folder to be monitored
 
-Use regedit to create a subkey under HKEY_LOCAL_MACHINE\SOFTWARE\Zooloo\FolderSync
-Add string items for SourcePath (folder to be monitored) and TargetPath (location to hold the replica)
+- Use regedit to create a subkey under HKEY_LOCAL_MACHINE\SOFTWARE\Zooloo\FolderSync
+- Add string items for SourcePath (folder to be monitored) and TargetPath (location to hold the replica)
 
 ### Start the service
 
-Open the Services applet
-Find the service named `Folder Synchronisation Service`
-Start the service
+- Open the Services applet
+- Find the service named `Folder Synchronisation Service`
+- Start the service
 
 ## Open an issue
 
