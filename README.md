@@ -7,7 +7,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/Zooloo2014/FolderSync?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/brent_zooloo?style=social)
 
-FolderSync is a `Windows service` that maintains a replica of a file system directory tree in a different file system location.
+FolderSync is a `Windows service` that maintains a replica of a file system directory tree in a different file system location
 
 ## Prerequisites
 
@@ -41,8 +41,13 @@ Open the Services applet
 Find the service named `Folder Synchronisation Service`
 Start the service
 
-## Contributing to <project_name>
+## Open an issue
+
+For feature requests or bug fixes
+
+## Contributing to FolderSync
 <!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
+
 To contribute to FolderSync, follow these steps:
 
 1. Fork this repository.
@@ -53,11 +58,7 @@ To contribute to FolderSync, follow these steps:
 
 Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-## Contact
-
-If you want to contact me you can reach me at <your_email@address.com>.
-
 ## License
 <!--- If you're not sure which open license to use see https://choosealicense.com/--->
 
-This project uses the following license: [<GNU General Public License v3.0>](<link>).
+This project uses the following license: [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
