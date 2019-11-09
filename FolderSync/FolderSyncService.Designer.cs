@@ -1,6 +1,6 @@
 ﻿namespace FolderSync
 {
-    partial class FolderSyncService
+    partial class FolderSync
     {
         /// <summary> 
         /// Required designer variable.
@@ -33,11 +33,12 @@
             // 
             // fileSystemWatcher
             // 
+            this.fileSystemWatcher.EnableRaisingEvents = true;
             this.fileSystemWatcher.IncludeSubdirectories = true;
             // 
-            // FolderSyncService
+            // FolderSync
             // 
-            this.ServiceName = "Service1";
+            this.ServiceName = "FolderSync";
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).EndInit();
 
         }
