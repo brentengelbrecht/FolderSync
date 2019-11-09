@@ -12,10 +12,10 @@ namespace FolderSync
         private String sourceFolder;
         private String targetFolder;
 
-        public FileActions(String sourceFolder, String targetFolder)
+        public FileActions(Configuration configuration)
         {
-            this.sourceFolder = sourceFolder;
-            this.targetFolder = targetFolder;
+            sourceFolder = configuration.SourcePath;
+            targetFolder = configuration.TargetPath;
         }
 
         public void changed(String sourcePath)
