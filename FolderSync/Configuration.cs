@@ -9,31 +9,40 @@ namespace FolderSync
 {
     public class Configuration
     {
-        private const String RegistryHome = "Software\\Zooloo\\FolderSync";
+        private const String RegistryHome = @"Software\Zooloo\FolderSync";
 
         private String sourcePath;
+        public String SourcePath
+        {
+            get
+            {
+                return sourcePath;
+            }
+        }
+
         private String targetPath;
-
-        public Configuration()
+        public String TargetPath
         {
+            get
+            {
+                return targetPath;
+            }
+        }
+
+        private ILogger logger;
+
+        public Configuration(ILogger logger)
+        {
+            this.logger = logger;
             loadFromRegistry();
-        }
-
-        public String getSourcePath()
-        {
-            return sourcePath;
-        }
-
-        public String getTargetPath()
-        {
-            return targetPath;
         }
 
         private void loadFromRegistry()
         {
             try
             {
-                using (RegistryKey sourceKey = Registry.LocalMachine.OpenSubKey(RegistryHome))
+                using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+                using (var sourceKey = hklm.OpenSubKey(RegistryHome))
                 {
                     if (sourceKey != null)
                     {
@@ -42,14 +51,8 @@ namespace FolderSync
                         {
                             sourcePath = source as String;
                         }
-                    }
-                }
 
-                using (RegistryKey targetKey = Registry.LocalMachine.OpenSubKey(RegistryHome))
-                {
-                    if (targetKey != null)
-                    {
-                        Object target = targetKey.GetValue("TargetPath");
+                        Object target = sourceKey.GetValue("TargetPath");
                         if (target != null)
                         {
                             targetPath = target as String;
@@ -59,6 +62,7 @@ namespace FolderSync
             }
             catch (Exception e)
             {
+                logger.LogToError(e.Message);
             }
         }
     }
