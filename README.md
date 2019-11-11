@@ -7,16 +7,18 @@
 ![GitHub forks](https://img.shields.io/github/forks/Zooloo2014/FolderSync?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/brent_zooloo?style=social)
 
-FolderSync is a `Windows service` that maintains a replica of a file system directory tree in a different file system location
+FolderSync is a Windows service that maintains a replica of a file system directory tree in a different file system location
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 <!--- These are just example requirements. Add, duplicate or remove as required --->
 * You have installed the latest version of `Visual Studio 2017`
-* You have a `Windows` machine
+* You have a Windows machine
 
 ## Installing or removing FolderSync (Windows only)
+
+_Administrator rights required_
 
 To install:
 ```
@@ -30,15 +32,15 @@ InstallUtil /u <path/to/>FolderSync.exe
 
 ## Using FolderSync
 
-### Create a configuration for folder to be monitored
+### Create a configuration for folder to be monitored in Windows Registry
 
-- Use regedit to create a subkey under HKEY_LOCAL_MACHINE\SOFTWARE\Zooloo\FolderSync
-- Add string items for SourcePath (folder to be monitored) and TargetPath (location to hold the replica)
+- Use regedit to create a subkey under `HKEY_LOCAL_MACHINE\SOFTWARE\Zooloo\FolderSync`
+- Add string items for `SourcePath` (folder to be monitored) and `TargetPath` (location to hold the replica)
 
 ### Start the service
 
-- Open the Services applet
-- Find the service named `Folder Synchronisation Service`
+- Open the `Services` applet
+- Find the service named 'Folder Synchronisation Service'
 - Start the service
 
 ## Open an issue
