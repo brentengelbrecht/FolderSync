@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FolderSyncTestApp
 {
-    class LocalFolderReplica : IReplica
+    public class LocalFolderReplica : IReplica
     {
         private String myFolder;
         public String MyFolder

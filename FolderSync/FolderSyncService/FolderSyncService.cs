@@ -1,52 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
+using FolderSyncTestApp;
 
 namespace FolderSync
 {
-    public partial class FolderSync : ServiceBase
+    public partial class FolderSyncService : ServiceBase
     {
         private Configuration configuration;
-        private FolderNotification folderNotification;
+        private EventSourcer eventSourcer;
+        private Propagator propagator;
         private WindowsEventLog windowsEventLog;
 
-        public FolderSync()
+        public FolderSyncService()
         {
             InitializeComponent();
 
             windowsEventLog = new WindowsEventLog("Application");
             configuration = new Configuration(windowsEventLog);
-
-            fileSystemWatcher.Path = configuration.SourcePath;
-            folderNotification = new FolderNotification(
-                new PathActions(configuration), 
-                new FileActions(configuration));
-
-            fileSystemWatcher.Changed += folderNotification.handleChanged;
-            fileSystemWatcher.Created += folderNotification.handleCreated;
-            fileSystemWatcher.Deleted += folderNotification.handleDeleted;
-            fileSystemWatcher.Renamed += folderNotification.handleRenamed;
+            propagator = new Propagator(new LocalFolderReplica(configuration.TargetPath));
+            eventSourcer = new EventSourcer(configuration.SourcePath);
+            eventSourcer.EventNotifier += new EventSourcerObserver(EventNotifier);
         }
 
         protected override void OnStart(string[] args)
         {
-            if (fileSystemWatcher.Path != "")
-            {
-                fileSystemWatcher.EnableRaisingEvents = true;
-                windowsEventLog.LogToInfo("Started monitoring path " + fileSystemWatcher.Path);
-            }
+            windowsEventLog.LogToInfo("Started monitoring path " + configuration.SourcePath);
+            eventSourcer.Start();
         }
 
         protected override void OnStop()
         {
-            fileSystemWatcher.EnableRaisingEvents = false;
-            windowsEventLog.LogToInfo("Stopped monitoring path " + fileSystemWatcher.Path);
+            eventSourcer.Stop();
+            windowsEventLog.LogToInfo("Stopped monitoring path " + configuration.SourcePath);
+        }
+
+        private void EventNotifier(ItemNotification item)
+        {
+            windowsEventLog.LogToInfo("Filesystem Event: " + item.ItemType.ToString() + " " + item.Name + " (" + item.FullPath + ")");
+            propagator.Accept(item);
         }
     }
 }

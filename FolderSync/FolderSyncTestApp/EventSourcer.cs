@@ -3,9 +3,9 @@ using System.IO;
 
 namespace FolderSyncTestApp
 {
-    delegate void EventSourcerObserver(ItemNotification item);
+    public delegate void EventSourcerObserver(ItemNotification item);
 
-    class EventSourcer
+    public class EventSourcer
     {
         private FileSystemWatcher fileSystemWatcher = new FileSystemWatcher();
         private String myFolder;
