@@ -30,6 +30,15 @@ namespace FolderSyncTestApp
             itemAction = ItemAction.RENAME;
             newName = NewName;
             newPath = NewPath;
+
+            if (IsDirectory(NewPath))
+            {
+                itemType = ItemType.FOLDER;
+            }
+            else
+            {
+                itemType = ItemType.FILE;
+            }
         }
     }
 }

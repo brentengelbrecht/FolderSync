@@ -27,29 +27,46 @@ namespace FolderSyncTestApp
         {
             String targetPath = BuildTargetPath(item.RelativePath, item.Name);
 
-            if (File.Exists(targetPath))
+            if (item.ItemType.Equals(ItemType.FILE))
             {
-                File.Delete(targetPath);
-            }
+                if (File.Exists(targetPath))
+                {
+                    File.Delete(targetPath);
+                }
 
-            File.Copy(item.FullPath, targetPath);
+                File.Copy(item.FullPath, targetPath);
+            }
+            else
+            {
+                Directory.CreateDirectory(targetPath);
+            }
         }
 
         public void HandleChange(ItemChangeNotification item)
         {
             String targetPath = BuildTargetPath(item.RelativePath, item.Name);
 
-            if (File.Exists(targetPath))
+            if (item.ItemType.Equals(ItemType.FILE))
             {
-                File.Delete(targetPath);
-            }
+                if (File.Exists(targetPath))
+                {
+                    File.Delete(targetPath);
+                }
 
-            File.Copy(item.FullPath, targetPath);
+                File.Copy(item.FullPath, targetPath);
+            }
         }
 
         public void HandleDelete(ItemDeleteNotification item)
         {
             String targetPath = BuildTargetPath(item.RelativePath, item.Name);
+
+            if (Directory.Exists(targetPath))
+            {
+                Directory.Delete(targetPath, true);
+                return;
+            }
+
             if (File.Exists(targetPath))
             {
                 File.Delete(targetPath);
@@ -61,9 +78,19 @@ namespace FolderSyncTestApp
             String fromFile = BuildTargetPath(item.RelativePath, item.Name);
             String toFile = BuildTargetPath(item.RelativePath, item.NewName);
 
-            if (!File.Exists(toFile))
+            if (item.ItemType.Equals(ItemType.FILE))
             {
-                File.Move(fromFile, toFile);
+                if (!File.Exists(toFile))
+                {
+                    File.Move(fromFile, toFile);
+                }
+            }
+            else
+            {
+                if (!Directory.Exists(toFile))
+                {
+                    Directory.Move(fromFile, toFile);
+                }
             }
         }
 

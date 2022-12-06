@@ -22,7 +22,7 @@ namespace FolderSyncTestApp
 
         protected void OnButtonStateChanged()
         {
-            ButtonStart.Enabled = serviceStarted == false;
+            ButtonStart.Enabled = serviceStarted == false && !String.IsNullOrEmpty(TextBoxSourceFolder.Text) && !String.IsNullOrEmpty(TextBoxTargetFolder.Text);
             ButtonStop.Enabled = serviceStarted == true;
         }
 
@@ -82,6 +82,7 @@ namespace FolderSyncTestApp
             {
                 TextBoxSourceFolder.Text = FolderBrowser.SelectedPath;
             }
+            OnButtonStateChanged();
         }
 
         private void ButtonBrowseTarget_Click(object sender, EventArgs e)
@@ -91,6 +92,7 @@ namespace FolderSyncTestApp
             {
                 TextBoxTargetFolder.Text = FolderBrowser.SelectedPath;
             }
+            OnButtonStateChanged();
         }
 
         private void EventNotifier(ItemNotification item)

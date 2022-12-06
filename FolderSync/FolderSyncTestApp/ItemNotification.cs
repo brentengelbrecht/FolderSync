@@ -34,7 +34,7 @@ namespace FolderSyncTestApp
             } 
         }
 
-        private ItemType itemType;
+        protected ItemType itemType;
         public ItemType ItemType
         {
             get 
@@ -71,7 +71,7 @@ namespace FolderSyncTestApp
             relativePath = "";
         }
 
-        private bool IsDirectory(String PathName)
+        protected bool IsDirectory(String PathName)
         {
             try 
             {
