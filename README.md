@@ -5,7 +5,6 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/Zooloo2014/FolderSync)
 ![GitHub stars](https://img.shields.io/github/stars/Zooloo2014/FolderSync?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/Zooloo2014/FolderSync?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/brent_zooloo?style=social)
 
 FolderSync is a Windows service that maintains a replica of a file system directory tree in a different file system location
 
@@ -13,8 +12,8 @@ FolderSync is a Windows service that maintains a replica of a file system direct
 
 Before you begin, ensure you have met the following requirements:
 <!--- These are just example requirements. Add, duplicate or remove as required --->
-* You have installed the latest version of `Visual Studio 2017`
-* You have a Windows machine
+* A Windows machine for development and testing
+* `Visual Studio 2019` for build, run and packaging
 
 ## Installing or removing FolderSync (Windows only)
 
@@ -52,7 +51,7 @@ For feature requests or bug fixes
 
 To contribute to FolderSync, follow these steps:
 
-1. Fork this repository.
+1. Clone this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
 3. Make your changes and commit them: `git commit -m '<commit_message>'`
 4. Push to the original branch: `git push origin <project_name>/<location>`
