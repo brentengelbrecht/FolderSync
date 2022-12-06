@@ -6,7 +6,7 @@ namespace FolderSyncTestApp
     {
         private ItemAction itemAction;
 
-        public ItemDeleteNotification(String Name, String FullPath) : base(Name, FullPath)
+        public ItemDeleteNotification(String BasePath, String Name, String FullPath) : base(BasePath, Name, FullPath)
         {
             itemAction = ItemAction.DELETE;
         }

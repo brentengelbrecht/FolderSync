@@ -6,7 +6,7 @@ namespace FolderSyncTestApp
     {
         private ItemAction itemAction;
 
-        public ItemChangeNotification(String Name, String FullPath) : base(Name, FullPath)
+        public ItemChangeNotification(String BasePath, String Name, String FullPath) : base(BasePath, Name, FullPath)
         {
             itemAction = ItemAction.CHANGE;
         }

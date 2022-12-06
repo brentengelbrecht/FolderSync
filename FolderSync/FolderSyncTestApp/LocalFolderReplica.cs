@@ -17,16 +17,27 @@ namespace FolderSyncTestApp
         public LocalFolderReplica(String Folder)
         {
             myFolder = Folder;
+            if (myFolder.EndsWith("\\"))
+            {
+                myFolder = myFolder.Remove(myFolder.Length);
+            }
         }
 
         public void HandleCreate(ItemCreateNotification item)
         {
-            HandleChange(new ItemChangeNotification(item.Name, item.FullPath));
+            String targetPath = BuildTargetPath(item.RelativePath, item.Name);
+
+            if (File.Exists(targetPath))
+            {
+                File.Delete(targetPath);
+            }
+
+            File.Copy(item.FullPath, targetPath);
         }
 
         public void HandleChange(ItemChangeNotification item)
         {
-            String targetPath = buildTargetPath(item.FullPath);
+            String targetPath = BuildTargetPath(item.RelativePath, item.Name);
 
             if (File.Exists(targetPath))
             {
@@ -38,7 +49,7 @@ namespace FolderSyncTestApp
 
         public void HandleDelete(ItemDeleteNotification item)
         {
-            String targetPath = buildTargetPath(item.FullPath);
+            String targetPath = BuildTargetPath(item.RelativePath, item.Name);
             if (File.Exists(targetPath))
             {
                 File.Delete(targetPath);
@@ -47,19 +58,22 @@ namespace FolderSyncTestApp
 
         public void HandleRename(ItemRenameNotification item)
         {
-            FileInfo source = new FileInfo(item.FullPath);
-            String fileToFind = myFolder + "\\" + item.Name;
-/*
-            if (!File.Exists(item.NewPath))
+            String fromFile = BuildTargetPath(item.RelativePath, item.Name);
+            String toFile = BuildTargetPath(item.RelativePath, item.NewName);
+
+            if (!File.Exists(toFile))
             {
-                File.Move(fileToFind, item.NewPath);
-            }*/
+                File.Move(fromFile, toFile);
+            }
         }
 
-        private String buildTargetPath(String sourcePath)
+        private String BuildTargetPath(String RelativePath, String Name)
         {
-            FileInfo source = new FileInfo(sourcePath);
-            return myFolder + "\\" + source.Name;
+            if (String.IsNullOrEmpty(RelativePath))
+            {
+                return myFolder + "\\" + Name;
+            }
+            return myFolder + "\\" + RelativePath + "\\" + Name;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace FolderSyncTestApp
     {
         private ItemAction itemAction; 
 
-        public ItemCreateNotification(String Name, String FullPath) : base(Name, FullPath)
+        public ItemCreateNotification(String BasePath, String Name, String FullPath) : base(BasePath, Name, FullPath)
         {
             itemAction = ItemAction.CREATE;
         }

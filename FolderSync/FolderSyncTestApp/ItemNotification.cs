@@ -24,6 +24,16 @@ namespace FolderSyncTestApp
         public String Name { get; set; }
         public String FullPath { get; set; }
 
+        private String basePath;
+        private String relativePath;
+        public String RelativePath
+        {
+            get
+            {
+                return relativePath;
+            } 
+        }
+
         private ItemType itemType;
         public ItemType ItemType
         {
@@ -33,10 +43,13 @@ namespace FolderSyncTestApp
             }
         }
 
-        public ItemNotification(String Name, String FullPath)
+        public ItemNotification(String BasePath, String Name, String FullPath)
         {
+            basePath = BasePath;
             this.Name = Name;
             this.FullPath = FullPath;
+
+            BuildRelativePath();
 
             if (IsDirectory(FullPath))
             {
@@ -46,6 +59,16 @@ namespace FolderSyncTestApp
             {
                 itemType = ItemType.FILE;
             }
+        }
+
+        private void BuildRelativePath()
+        {
+            if (FullPath.Length > basePath.Length && FullPath.StartsWith(basePath))
+            {
+                relativePath = FullPath.Remove(FullPath.Length - Name.Length).Substring(basePath.Length);
+                return;
+            }
+            relativePath = "";
         }
 
         private bool IsDirectory(String PathName)

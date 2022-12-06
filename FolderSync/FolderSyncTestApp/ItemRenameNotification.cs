@@ -25,7 +25,7 @@ namespace FolderSyncTestApp
         }
 
 
-        public ItemRenameNotification(String Name, String FullPath, String NewName, String NewPath) : base(Name, FullPath)
+        public ItemRenameNotification(String BasePath, String NewName, String NewPath, String Name, String FullPath) : base(BasePath, Name, FullPath)
         {
             itemAction = ItemAction.RENAME;
             newName = NewName;
