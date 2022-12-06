@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Win32;
 
 namespace FolderSync
@@ -12,7 +8,7 @@ namespace FolderSync
         private const String RegistryHome = @"Software\Zooloo\FolderSync";
 
         private String sourcePath;
-        public String SourcePath
+        public String SourcePath 
         {
             get
             {
@@ -21,7 +17,7 @@ namespace FolderSync
         }
 
         private String targetPath;
-        public String TargetPath
+        public String TargetPath 
         {
             get
             {
@@ -42,20 +38,22 @@ namespace FolderSync
             try
             {
                 using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
-                using (var sourceKey = hklm.OpenSubKey(RegistryHome))
                 {
-                    if (sourceKey != null)
+                    using (var sourceKey = hklm.OpenSubKey(RegistryHome))
                     {
-                        Object source = sourceKey.GetValue("SourcePath");
-                        if (source != null)
+                        if (sourceKey != null)
                         {
-                            sourcePath = source as String;
-                        }
+                            Object source = sourceKey.GetValue("SourcePath");
+                            if (source != null)
+                            {
+                                sourcePath = source as String;
+                            }
 
-                        Object target = sourceKey.GetValue("TargetPath");
-                        if (target != null)
-                        {
-                            targetPath = target as String;
+                            Object target = sourceKey.GetValue("TargetPath");
+                            if (target != null)
+                            {
+                                targetPath = target as String;
+                            }
                         }
                     }
                 }

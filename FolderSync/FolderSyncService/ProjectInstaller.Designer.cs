@@ -1,6 +1,7 @@
-﻿namespace FolderSync
+﻿
+namespace FolderSyncService
 {
-    public partial class ProjectInstaller : System.Configuration.Install.Installer
+    partial class ProjectInstaller
     {
         /// <summary>
         /// Required designer variable.
@@ -28,33 +29,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ServiceProcess.ServiceInstaller serviceInstaller;
             this.serviceProcessInstaller = new System.ServiceProcess.ServiceProcessInstaller();
-            serviceInstaller = new System.ServiceProcess.ServiceInstaller();
-            // 
-            // serviceInstaller
-            // 
-            serviceInstaller.Description = "Replicates file system directory tree at an alternate location";
-            serviceInstaller.DisplayName = "Folder Synchronisation Service";
-            serviceInstaller.ServiceName = "FolderSyncService";
+            this.FolderSynchronisationService = new System.ServiceProcess.ServiceInstaller();
             // 
             // serviceProcessInstaller
             // 
             this.serviceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             this.serviceProcessInstaller.Password = null;
             this.serviceProcessInstaller.Username = null;
-            this.serviceProcessInstaller.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.serviceProcessInstaller_AfterInstall);
+            // 
+            // FolderSynchronisationService
+            // 
+            this.FolderSynchronisationService.DisplayName = "Folder Synchronisation Service";
+            this.FolderSynchronisationService.ServiceName = "FolderSyncService";
             // 
             // ProjectInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
             this.serviceProcessInstaller,
-            serviceInstaller});
+            this.FolderSynchronisationService});
 
         }
 
         #endregion
 
         private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller;
+        private System.ServiceProcess.ServiceInstaller FolderSynchronisationService;
     }
 }
